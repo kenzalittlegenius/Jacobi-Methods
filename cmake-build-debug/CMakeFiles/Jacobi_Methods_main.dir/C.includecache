@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jaydan/Documents/Jacobi-Methods-main/Tp2-IFT2425.c
+stdio.h
+-
+math.h
+-
+stdlib.h
+-
+string.h
+-
+unistd.h
+-
+X11/Xutil.h
+-
+

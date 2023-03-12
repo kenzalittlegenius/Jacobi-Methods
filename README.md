@@ -3,7 +3,7 @@ Pour compiler le programme
 > ./compilegcc TP2-IFT2425 
 
 Pour executer par exemple
-> TP2-IFT2425 rubikseq0.pgm rubikseq1.pgm 500
+> ./TP2-IFT2425 rubikseq0.pgm rubikseq1.pgm 500
 
  //------------------------------------------------------------
  // Estimation du Flux Optique de Horn & Schunk [par Jacobi]
