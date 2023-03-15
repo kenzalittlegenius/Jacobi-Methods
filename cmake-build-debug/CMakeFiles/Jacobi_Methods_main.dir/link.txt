@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/Jacobi_Methods_main.dir/TP2-IFT2425.c.o  -o Jacobi_Methods_main 

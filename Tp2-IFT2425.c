@@ -1,12 +1,12 @@
 //------------------------------------------------------
 // module  : Tp2-IFT2425.c
-// author  : 
-// date    : 
+// author  :
+// date    :
 // version : 1.0
 // language: C++
 // note    :
 //------------------------------------------------------
-//  
+//
 
 //------------------------------------------------
 // FICHIERS INCLUS -------------------------------
@@ -82,8 +82,8 @@ Window fabrique_window(char *nom_fen,int x,int y,int width,int height,int zoom)
 
   gc=XCreateGC(display,win,0,NULL);
 
-  XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask| 
-               ButtonReleaseMask|ButtonMotionMask|PointerMotionHintMask| 
+  XSelectInput(display,win,ExposureMask|KeyPressMask|ButtonPressMask|
+               ButtonReleaseMask|ButtonMotionMask|PointerMotionHintMask|
                StructureNotifyMask);
 
   XMapWindow(display,win);
@@ -115,14 +115,14 @@ XImage* cree_Ximage(float** mat,int z,int length,int width)
         exit(-1); }
 
   for(lig=0;lig<lgth;lig=lig+z) for(col=0;col<wdth;col=col+z)
-   { 
+   {
     pix=(unsigned char)mat[lig/z][col/z];
     for(zoom_lig=0;zoom_lig<z;zoom_lig++) for(zoom_col=0;zoom_col<z;zoom_col++)
-      { 
+      {
        dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+0)]=pix;
        dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+1)]=pix;
        dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+2)]=pix;
-       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+3)]=pix; 
+       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+3)]=pix;
        }
     }
   } /*--------------------------------------------------------*/
@@ -141,16 +141,16 @@ XImage* cree_Ximage(float** mat,int z,int length,int width)
         exit(-1); }
 
   for(lig=0;lig<(lgth*z);lig=lig+z) for(col=0;col<(wdth*z);col=col+z)
-   {  
+   {
     somme=0.0;
     for(zoom_lig=0;zoom_lig<z;zoom_lig++) for(zoom_col=0;zoom_col<z;zoom_col++)
      somme+=mat[lig+zoom_lig][col+zoom_col];
-           
-     somme/=(z*z);    
+
+     somme/=(z*z);
      dat[((lig/z)*wdth*4)+((4*(col/z))+0)]=(unsigned char)somme;
      dat[((lig/z)*wdth*4)+((4*(col/z))+1)]=(unsigned char)somme;
      dat[((lig/z)*wdth*4)+((4*(col/z))+2)]=(unsigned char)somme;
-     dat[((lig/z)*wdth*4)+((4*(col/z))+3)]=(unsigned char)somme; 
+     dat[((lig/z)*wdth*4)+((4*(col/z))+3)]=(unsigned char)somme;
    }
   } /*--------------------------------------------------------*/
 
@@ -185,7 +185,7 @@ XImage* cree_XimageCoul(float*** matRVB,int z,int length,int width)
         exit(-1); }
 
   for(lig=0;lig<lgth;lig=lig+z) for(col=0;col<wdth;col=col+z)
-   { 
+   {
     pixR=(unsigned char)matRVB[0][lig/z][col/z];
     pixV=(unsigned char)matRVB[1][lig/z][col/z];
     pixB=(unsigned char)matRVB[2][lig/z][col/z];
@@ -193,11 +193,11 @@ XImage* cree_XimageCoul(float*** matRVB,int z,int length,int width)
     pixN=(unsigned char)somme;
 
     for(zoom_lig=0;zoom_lig<z;zoom_lig++) for(zoom_col=0;zoom_col<z;zoom_col++)
-      { 
-       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+0)]=pixB; 
-       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+1)]=pixV; 
-       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+2)]=pixR; 
-       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+3)]=0; 
+      {
+       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+0)]=pixB;
+       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+1)]=pixV;
+       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+2)]=pixR;
+       dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+3)]=0;
        }
     }
   } /*--------------------------------------------------------*/
@@ -216,19 +216,19 @@ XImage* cree_XimageCoul(float*** matRVB,int z,int length,int width)
         exit(-1); }
 
   for(lig=0;lig<(lgth*z);lig=lig+z) for(col=0;col<(wdth*z);col=col+z)
-   {  
+   {
     sum[0]=sum[1]=sum[2]=0.0;
-    
+
     for(i=0;i<3;i++)
     for(zoom_lig=0;zoom_lig<z;zoom_lig++) for(zoom_col=0;zoom_col<z;zoom_col++)
      sum[i]+=matRVB[i][lig+zoom_lig][col+zoom_col];
-       
-    for(i=0;i<3;i++)  sum[i]/=(z*z); 
+
+    for(i=0;i<3;i++)  sum[i]/=(z*z);
 
      dat[((lig/z)*wdth*4)+((4*(col/z))+0)]=(unsigned char)sum[1];
      dat[((lig/z)*wdth*4)+((4*(col/z))+1)]=(unsigned char)sum[1];
      dat[((lig/z)*wdth*4)+((4*(col/z))+2)]=(unsigned char)sum[1];
-     dat[((lig/z)*wdth*4)+((4*(col/z))+3)]=(unsigned char)sum[1]; 
+     dat[((lig/z)*wdth*4)+((4*(col/z))+3)]=(unsigned char)sum[1];
    }
   } /*--------------------------------------------------------*/
 
@@ -262,24 +262,24 @@ XImage* cree_XimageWithMvt(float** matImg,float** vctMvt,int z,int length,int wi
         exit(-1); }
 
   for(lig=0;lig<lgth;lig=lig+z) for(col=0;col<wdth;col=col+z)
-   { 
+   {
     pixR=(unsigned char)matImg[lig/z][col/z];
     pixV=(unsigned char)matImg[lig/z][col/z];
     pixB=(unsigned char)matImg[lig/z][col/z];
     pixM=(unsigned char)vctMvt[lig/z][col/z];
 
     for(zoom_lig=0;zoom_lig<z;zoom_lig++) for(zoom_col=0;zoom_col<z;zoom_col++)
-      { dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+0)]=pixB; 
-        dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+1)]=pixV; 
-        dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+2)]=pixR; 
+      { dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+0)]=pixB;
+        dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+1)]=pixV;
+        dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+2)]=pixR;
         dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+3)]=0; }
 
     for(zoom_lig=0;zoom_lig<z;zoom_lig++) for(zoom_col=0;zoom_col<z;zoom_col++)
-      { 
-        if (pixM) { dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+0)]=0; 
-                    dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+1)]=255; 
+      {
+        if (pixM) { dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+0)]=0;
+                    dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+1)]=255;
                     dat[((lig+zoom_lig)*wdth*4)+((4*(col+zoom_col))+2)]=0; }
-      } 
+      }
     }
   } /*--------------------------------------------------------*/
 
@@ -329,18 +329,18 @@ float*** fmatrix_allocate_3d(int dsize,int vsize,int hsize)
  }
 
 //----------------------------------------------------------
-// Libere la memoire de la matrice 1d de float              
+// Libere la memoire de la matrice 1d de float
 //----------------------------------------------------------
 void free_fmatrix_1d(float* pmat)
- { 
-  free(pmat); 
+ {
+  free(pmat);
  }
 
 //----------------------------------------------------------
-// Libere la memoire de la matrice 2d de float              
+// Libere la memoire de la matrice 2d de float
 //----------------------------------------------------------
 void free_fmatrix_2d(float** pmat)
- { 
+ {
   free(pmat[0]);
   free(pmat);
  }
@@ -349,16 +349,16 @@ void free_fmatrix_2d(float** pmat)
 // libere la memoire de la matrice 3d de float
 //----------------------------------------------------------
 void free_fmatrix_3d(float*** pmat,int dsize)
-{ 
+{
  int i;
  for(i=0;i<dsize;i++)
    { free (pmat[i][0]);
      free (pmat[i]); }
-  free(pmat); 
+  free(pmat);
 }
 
 //----------------------------------------------------------
-// Chargement de l'image de nom <name> (en pgm)             
+// Chargement de l'image de nom <name> (en pgm)
 //----------------------------------------------------------
 float** LoadImagePgm(char* name,int *length,int *width)
  {
@@ -368,7 +368,7 @@ float** LoadImagePgm(char* name,int *length,int *width)
   int ta1,ta2,ta3;
   FILE *fic;
   char buff[100],stringTmp1[100],stringTmp2[100];
- 
+
   //>Ouverture_Fichier
   strcpy(buff,name);
   printf("\n  > Ouverture de %s",buff);
@@ -390,9 +390,9 @@ float** LoadImagePgm(char* name,int *length,int *width)
   *length=ta2;
   *width=ta1;
   mat=fmatrix_allocate_2d(*length,*width);
-   
+
   //>Chargement Image
-  for(i=0;i<*length;i++) for(j=0;j<*width;j++)  
+  for(i=0;i<*length;i++) for(j=0;j<*width;j++)
      { fread(&var,1,1,fic);
        mat[i][j]=var; }
 
@@ -402,8 +402,8 @@ float** LoadImagePgm(char* name,int *length,int *width)
  }
 
 //----------------------------------------------------------
-// Sauvegarde de l'image de nom <name> au format pgm                        
-//----------------------------------------------------------                
+// Sauvegarde de l'image de nom <name> au format pgm
+//----------------------------------------------------------
 void SaveImagePgm(char* name,float** mat,int lgth,int wdth)
 {
  int i,j;
@@ -416,8 +416,8 @@ void SaveImagePgm(char* name,float** mat,int lgth,int wdth)
 
   //>Ouverture fichier
   fic=fopen(buff,"wb");
-    if (fic==NULL) 
-        { printf("Probleme dans la sauvegarde de %s",buff); 
+    if (fic==NULL)
+        { printf("Probleme dans la sauvegarde de %s",buff);
           exit(-1); }
   printf("\n Sauvegarde [%s] (format pgm)",buff);
 
@@ -429,14 +429,14 @@ void SaveImagePgm(char* name,float** mat,int lgth,int wdth)
 
   //>Enregistrement--
   for(i=0;i<lgth;i++) for(j=0;j<wdth;j++) fprintf(fic,"%c",(char)mat[i][j]);
-   
+
   //>Fermeture fichier
-  fclose(fic); 
+  fclose(fic);
 }
 
 //----------------------------------------------------------
-// Sauvegarde de l'image de nom <name> au format ppm                        
-//----------------------------------------------------------                
+// Sauvegarde de l'image de nom <name> au format ppm
+//----------------------------------------------------------
 void SaveImagePpm(char* name,float** img,float** vct,int lgth,int wdth)
 {
  int i,j;
@@ -449,8 +449,8 @@ void SaveImagePpm(char* name,float** img,float** vct,int lgth,int wdth)
 
   //>Ouverture fichier
   fic=fopen(buff,"wb");
-    if (fic==NULL) 
-        { printf("Probleme dans la sauvegarde de %s",buff); 
+    if (fic==NULL)
+        { printf("Probleme dans la sauvegarde de %s",buff);
           exit(-1); }
   printf("\n Sauvegarde [%s] (format ppm)",buff);
 
@@ -461,8 +461,8 @@ void SaveImagePpm(char* name,float** img,float** vct,int lgth,int wdth)
   fprintf(fic,"\n255\n");
 
   //>Enregistrement--
-  for(i=0;i<lgth;i++) for(j=0;j<wdth;j++) 
-     { 
+  for(i=0;i<lgth;i++) for(j=0;j<wdth;j++)
+     {
        if (!vct[i][j])
 	  { fprintf(fic,"%c",(char)img[i][j]);
             fprintf(fic,"%c",(char)img[i][j]);
@@ -472,13 +472,13 @@ void SaveImagePpm(char* name,float** img,float** vct,int lgth,int wdth)
             fprintf(fic,"%c",(char)vct[i][j]);
             fprintf(fic,"%c",(char)0); }
      }
-   
+
   //>Fermeture fichier
-  fclose(fic); 
+  fclose(fic);
 }
 
 //----------------------------------------------------------
-// DrawLine[Img] (rowbeg,colbeg)-->(rowend,colend)                        
+// DrawLine[Img] (rowbeg,colbeg)-->(rowend,colend)
 //----------------------------------------------------------
 void DrawLine(float** Img,int colbeg,int rowbeg,int colend,int rowend,int wdth,int lgth)
 {
@@ -491,43 +491,43 @@ void DrawLine(float** Img,int colbeg,int rowbeg,int colend,int rowend,int wdth,i
  //Boucles
  if (fabs(diffrow)>=fabs(diffcol))
     { pente=(float)(diffcol)/(float)(diffrow);
-      incrow=diffrow/fabs(diffrow); 
+      incrow=diffrow/fabs(diffrow);
       cord=colbeg;
 
      if (rowend>=rowbeg) for(k=rowbeg;k<=rowend;k++)
-	{ if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[k][(int)cord]=255; 
+	{ if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[k][(int)cord]=255;
           cord+=pente; }
-     
+
      if (rowbeg>rowend) for(k=rowbeg;k>=rowend;k--)
-        { if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[k][(int)cord]=255; 
+        { if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[k][(int)cord]=255;
           cord-=pente; }
 
      cord=colend;
      k=rowend;
-     if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[k][(int)cord]=255; 
+     if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[k][(int)cord]=255;
     }
 
  if (fabs(diffcol)>fabs(diffrow))
     { pente=(float)(diffrow)/(float)(diffcol);
-      inccol=diffcol/fabs(diffcol);    
+      inccol=diffcol/fabs(diffcol);
       cord=rowbeg;
 
       if (colend>=colbeg) for(k=colbeg;k<=colend;k++)
-	 { if ((k>0)&&(cord>0)&&(k<wdth)&&(cord<lgth)) Img[(int)cord][k]=255; 
+	 { if ((k>0)&&(cord>0)&&(k<wdth)&&(cord<lgth)) Img[(int)cord][k]=255;
            cord+=pente;}
 
       if (colbeg>colend) for(k=colbeg;k>=colend;k--)
-         { if ((k>0)&&(cord>0)&&(k<wdth)&&(cord<lgth))  Img[(int)cord][k]=255; 
-           cord-=pente; } 
+         { if ((k>0)&&(cord>0)&&(k<wdth)&&(cord<lgth))  Img[(int)cord][k]=255;
+           cord-=pente; }
 
           cord=rowend;
           k=colend;
-          if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[(int)cord][k]=255;  
+          if ((k>0)&&(cord>0)&&(k<lgth)&&(cord<wdth)) Img[(int)cord][k]=255;
       }
 }
 
 //----------------------------------------------------------
-// PutArrowOnImg                                                   
+// PutArrowOnImg
 //----------------------------------------------------------
 void PutArrowOnImg(float** Img,int lgth,int wdth,int PosX,int PosY,float IncPosX,float IncPosY)
 {
@@ -535,41 +535,41 @@ double Theta;
 double PX,PY;
 double NxtPosX,NxtPosY;
 
-double PI=3.141592653; 
+double PI=3.141592653;
 double FACT=20.0;
 float LGTH_MIN=1.0;
 float LGTH_MIN_ARROW=5.0;
 
 double IncPosX_= IncPosX*FACT;
 double IncPosY_= IncPosY*FACT;
-double LgthArrow=sqrt((IncPosX_*IncPosX_)+(IncPosY_*IncPosY_));  
+double LgthArrow=sqrt((IncPosX_*IncPosX_)+(IncPosY_*IncPosY_));
 double Sz=LgthArrow/2.0;
 
 if (IncPosX==0) Theta=PI/2;
 else Theta=atan2(IncPosY,IncPosX);
 
 NxtPosX=PosX+(IncPosX_);
-NxtPosY=PosY+(IncPosY_); 
+NxtPosY=PosY+(IncPosY_);
 
 if (LgthArrow>LGTH_MIN)
-   { 
+   {
    DrawLine(Img,PosX,PosY,NxtPosX,NxtPosY,wdth,lgth);
 
    if (LgthArrow>LGTH_MIN_ARROW)
       {
-       Theta=atan2(PosY-NxtPosY,PosX-NxtPosX);  
+       Theta=atan2(PosY-NxtPosY,PosX-NxtPosX);
        PX=(int)(NxtPosX + Sz * cos(Theta + PI/4.0));
        PY=(int)(NxtPosY + Sz * sin(Theta + PI/4.0));
-       DrawLine(Img,PX,PY,NxtPosX,NxtPosY,wdth,lgth);        
+       DrawLine(Img,PX,PY,NxtPosX,NxtPosY,wdth,lgth);
        PX=(int)(NxtPosX + Sz * cos(Theta - PI/4.0));
        PY=(int)(NxtPosY + Sz * sin(Theta - PI/4.0));
-       DrawLine(Img,PX,PY,NxtPosX,NxtPosY,wdth,lgth);  
-      } 
-   }      
+       DrawLine(Img,PX,PY,NxtPosX,NxtPosY,wdth,lgth);
+      }
+   }
 }
 
 //----------------------------------------------------------
-// ConvertVelocityFieldInAroowField                                                   
+// ConvertVelocityFieldInAroowField
 //----------------------------------------------------------
 void ConvertVelocityFieldInAroowField(float*** SeqImgOptFlot,float*** Vx,float*** Vy,int lgth,int wdth,int nbit,int INC)
 {
@@ -577,7 +577,7 @@ void ConvertVelocityFieldInAroowField(float*** SeqImgOptFlot,float*** Vx,float**
 
  for(k=0;k<nbit;k++) for(i=0;i<lgth;i++) for(j=0;j<wdth;j++) SeqImgOptFlot[k][i][j]=0.0;
 
- for(k=0;k<nbit;k++) for(i=INC;i<(lgth-INC);i+=INC) for(j=INC;j<(wdth-INC);j+=INC) 
+ for(k=0;k<nbit;k++) for(i=INC;i<(lgth-INC);i+=INC) for(j=INC;j<(wdth-INC);j+=INC)
  PutArrowOnImg(SeqImgOptFlot[k],lgth,wdth,j,i,Vx[k][i][j],Vy[k][i][j]);
 }
 
@@ -616,23 +616,23 @@ int main(int argc,char** argv)
  //>Pour Xwindow
  XEvent ev;
  Window win_ppicture1,win_ppicture2,win_ppicture3;
- XImage *x_ppicture1,*x_ppicture2,*x_ppicture3; 
- char   nomfen_ppicture1[100],nomfen_ppicture2[100],nomfen_ppicture3[100]; 
+ XImage *x_ppicture1,*x_ppicture2,*x_ppicture3;
+ char   nomfen_ppicture1[100],nomfen_ppicture2[100],nomfen_ppicture3[100];
 
  //>Lis Arguments
- if(argc<4) 
-   { printf("\n\t Usage: %s image1 image2 alpha",argv[0]); 
+ if(argc<4)
+   { printf("\n\t Usage: %s image1 image2 alpha",argv[0]);
      printf("\n\t Exemple: %s rubikseq0.pgm rubikseq1.pgm 500",argv[0]);
      printf("\n\t Exemple: %s salesman0.pgm salesman1.pgm 200",argv[0]);
      printf("\n\t Exemple: %s carfront0.pgm carfront1.pgm 400",argv[0]);
      printf("\n\n\n");
-     return 0; } 
+     return 0; }
  int zoom=2;
 
  //>Load Images_&_Parametre
  Img1=LoadImagePgm(argv[1],&length,&width);
  Img2=LoadImagePgm(argv[2],&length,&width);
- alpha=atof(argv[3]); 
+ alpha=atof(argv[3]);
  printf("\n  > Alpha=[%.2f]",alpha);
  fflush(stdout);
 
@@ -647,23 +647,23 @@ int main(int argc,char** argv)
  VyM=fmatrix_allocate_2d(length,width);
 
  //Init
- for(k=0;k<NBITER;k++) for(i=0;i<length;i++) for(j=0;j<width;j++) 
+ for(k=0;k<NBITER;k++) for(i=0;i<length;i++) for(j=0;j<width;j++)
     { SeqImgOptFlot[k][i][j]=0.0;
       OptFl_Vx[k][i][j]=0.0;
       OptFl_Vy[k][i][j]=0.0; }
 
-    
+
     //> Rempli OptFlotSequence (apr une seq. de flot optique aleatoire)
     //> les septs lignes suivantes sont a mettre en commentaire
-    for(k=0;k<NBITER;k++) 
-       { printf("\r  > Iteration > [%d/%d] ",k,NBITER);
-         float posx=0.3*cos(3.0*3.14*k/NBITER);
-         float posy=0.3*sin(3.0*3.14*k/NBITER);
-         for(i=5;i<length-5;i++) for(j=5;j<width-5;j++)
-	    {  OptFl_Vx[k][i][j]=posx;
-	       OptFl_Vy[k][i][j]=posy; } }
+    //for(k=0;k<NBITER;k++)
+    //  { printf("\r  > Iteration > [%d/%d] ",k,NBITER);
+    //     float posx=0.3*cos(3.0*3.14*k/NBITER);
+    //     float posy=0.3*sin(3.0*3.14*k/NBITER);
+    //     for(i=5;i<length-5;i++) for(j=5;j<width-5;j++)
+	//    {  OptFl_Vx[k][i][j]=posx;
+    //      OptFl_Vy[k][i][j]=posy; } }
 
- 
+
 
  //------------------------------------------------------------
  // Estimation du Flux Optique de Horn & Schunk [par Jacobi]
@@ -671,14 +671,70 @@ int main(int argc,char** argv)
  // L'image 1 et 2 sont enregistrée dans les tableau 2D Img1[][] et Img2[][]
  // Ix, Iy, It sont des tableaux 2D de même dimension que l'image qui ont été allouées
  // VxM, VyM  Vecteur Vx & Vy moyenné aussi
- // OptFl_Vx, OptFl_Vy qui contiendra le flot optique 
+ // OptFl_Vx, OptFl_Vy qui contiendra le flot optique
  //
  //-----------------------------------------------------------
  printf("\n\n Jacobi Iterations :\n");
- 
+ printf("\r > Iteration > [%d,%d]",1,NBITER)
+ fflush(stdout);
  //Programmer ici ........
 
+ // ---------------------------------------------------------
+ //Equation 4: Methode Iterative de Jacobi
+ //----------------------------------------------------------
 
+    for(i=0;i<length;i++) for(j=0;j<width;j++)
+        { SeqImgOptFlot[0][i][j]=0.0;
+            OptFl_Vx[k][i][j]=0.0;
+            OptFl_Vy[k][i][j]=0.0; }
+
+    for(k=0;k<NBITER-1;k++) {
+        printf("\r  > Nombre Iteration > [%d/%d] ",m+2,NBITER);
+        fflush(stdout);
+
+        // Vecteur pour le pixel de coordonnees (i,j)
+        inline float calculVecteurMoyLocal(float** v, int i, int j){
+            return (v[i-1][j] + v[i+1][j] + v[i][j+1] + v[i][j-1])/6.0 + (v[i-1][j-1] + v[i-1][j+1]
+                    + v[i+1][j+1] + v[i+1][j-1])/12.0;
+        }
+        // les pixels de contours sont negligeables
+        for(i=1;i<length-1;i++) for(j=1;j<width-1;j++) {
+                VxM[i][j] = calculVecteurMoyLocal(OptFl_Vx[k],i,j);
+                VyM[i][j] = calculVecteurMoyLocal(OptFl_Vy[k],i,j);
+                // Equation (4)
+                float A = (Ix[i][j]*VxM[i][j] + Iy[i][j]*VyM[i][j] + It[i][j])/(pow(alpha,2) +
+                        pow(Ix[i][j],2) + pow(Ix[i][j],2));
+                OptFl_Vx[k+1][i][j]= VxM[i][j] - Ix[i][j]*A;
+                OptFl_Vy[k+1][i][j]= VyM[i][j] - Iy[i][j]*A;
+        }
+        // les pixels de contours ont ete negliges dans l iteration precedente mais ne le seront pas dans la suite
+        for(i=0;i<length;i++) {
+            OptFl_Vx[k][i][0] = 0.0;
+            OptFl_Vx[k][i][width-1] = 0.0;
+            OptFl_Vy[k][i][0] = 0.0;
+            OptFl_Vy[k][i][width-1] = 0.0;
+        }
+        for(j=1;j<width-1;j++) {
+            OptFl_Vx[k][0][j] = 0.0;
+            OptFl_Vx[k][length-1][j] = 0.0;
+            OptFl_Vy[k][0][j] = 0.0;
+            OptFl_Vy[k][length-1][j] = 0.0;
+        }
+    }
+
+ //----------------------------------------------------------
+ //Equation 6:
+ //----------------------------------------------------------
+for(i=1;i<length-1;i++) {
+    for (j = 1; j < width - 1; j++) {
+        Ix[i][j] = (Img1[i][j + 1] - Img1[i][j] + Img1[i + 1][j + 1] - Img1[i + 1][j] + Img2[i][j + 1]
+                    - Img2[i][j] + Img2[i + 1][j + 1] - Img2[i + 1][j]) / 4.0;
+        Iy[i][j] = (Img1[i + 1][j] - Img1[i][j] + Img1[i + 1][j + 1] - Img1[i][j + 1] + Img2[i + 1][j]
+                    - Img2[i][j] + Img2[i + 1][j + 1] - Img2[i][j + 1]) / 4.0;
+        It[i][j] = (Img2[i][j] - Img1[i][j] + Img2[i + 1][j] - Img1[i + 1][j] + Img2[i][j + 1]
+                    - Img1[i][j + 1] + Img2[i + 1][j + 1] - Img1[i + 1][j + 1]) / 4.0;
+    }
+}
 
 
 
@@ -700,19 +756,19 @@ int main(int argc,char** argv)
  //Info
  printf("\n\n Evolution du Flot Optique estime: ");
 
- //>Window creation 
+ //>Window creation
  if (open_display()<0) printf("Graphical Session Error");
- sprintf(nomfen_ppicture1,"Image Sequence"); 
+ sprintf(nomfen_ppicture1,"Image Sequence");
  sprintf(nomfen_ppicture2,"Optical Flow");
- sprintf(nomfen_ppicture3,"Image + Optical Flow"); 
+ sprintf(nomfen_ppicture3,"Image + Optical Flow");
  win_ppicture1=fabrique_window(nomfen_ppicture1,10,10,width,length,zoom);
  win_ppicture2=fabrique_window(nomfen_ppicture2,12+(zoom*width),10,width,length,zoom);
  win_ppicture3=fabrique_window(nomfen_ppicture3,12+(zoom*width),10,width,length,zoom);
- 
+
  //>Visu Sequences
  printf("\n");
- for(k=0;k<NBITER;k++) 
-    { 
+ for(k=0;k<NBITER;k++)
+    {
       printf("\r [%d/1000]",k);
       fflush(stdout);
       if ((k/10)%2)  x_ppicture1=cree_Ximage(Img1,zoom,length,width);
@@ -728,26 +784,26 @@ int main(int argc,char** argv)
                    x_ppicture3->width,x_ppicture3->height);
 
       usleep(10); //si votre machine est lente mettre un nombre moins grand
-      if (k==(NBITER-1)); 
+      if (k==(NBITER-1));
          { XDestroyImage(x_ppicture1);
-           XDestroyImage(x_ppicture2); 
+           XDestroyImage(x_ppicture2);
            XDestroyImage(x_ppicture3); }
     }
-       
-//--------------- End Graphical Session --------------------     
+
+//--------------- End Graphical Session --------------------
 //----------------------------------------------------------
 
  //Liberation Memoire
- if (SeqImgOptFlot) free_fmatrix_3d(SeqImgOptFlot,NBITER); 
+ if (SeqImgOptFlot) free_fmatrix_3d(SeqImgOptFlot,NBITER);
  if (OptFl_Vx)  free_fmatrix_3d(OptFl_Vx,NBITER);
  if (OptFl_Vy)  free_fmatrix_3d(OptFl_Vy,NBITER);
- if (Ix)  free_fmatrix_2d(Ix);   
+ if (Ix)  free_fmatrix_2d(Ix);
  if (Iy)  free_fmatrix_2d(Iy);
  if (It)  free_fmatrix_2d(It);
  if (VxM) free_fmatrix_2d(VxM);
  if (VyM) free_fmatrix_2d(VyM);
 
  //Return
- printf("\n C'est fini... \n"); 
+ printf("\n C'est fini... \n");
  return 0;
  }

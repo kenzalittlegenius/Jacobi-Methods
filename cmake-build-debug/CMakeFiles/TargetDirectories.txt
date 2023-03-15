@@ -1,3 +1,3 @@
-/home/jaydan/Documents/Jacobi-Methods-main/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/jaydan/Documents/Jacobi-Methods-main/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/jaydan/Documents/Jacobi-Methods-main/cmake-build-debug/CMakeFiles/Jacobi_Methods_main.dir
+/Users/margueritemireille/Desktop/Jacobi-Methods/cmake-build-debug/CMakeFiles/Jacobi_Methods_main.dir
+/Users/margueritemireille/Desktop/Jacobi-Methods/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/margueritemireille/Desktop/Jacobi-Methods/cmake-build-debug/CMakeFiles/rebuild_cache.dir
